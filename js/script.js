@@ -713,7 +713,7 @@ function renderPage(){
   cell.onclick = function(){
     var newOption = {};
     newOption.qty = parseInt(document.getElementById('qtyInput').value);
-    newOption.strike = parseInt(document.getElementById('strikeInput').value);
+    newOption.strike = parseFloat(document.getElementById('strikeInput').value);
     var e = document.getElementById('typeInput');
     newOption.type = e.options[e.selectedIndex].value == "true" ? true : false;
     newOption.dte = parseInt(document.getElementById('dteInput').value);
