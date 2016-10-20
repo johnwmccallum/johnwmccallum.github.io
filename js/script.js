@@ -4,9 +4,9 @@ var stockMain = 0.25;
 var optStndReq = 0.25;
 var optMinReq = 0.15;
 var optMulti = 100;
-var stockQty = 0;
+var stockQty = 1000;
 var options = [ // type: true means call, false means put // "Req's" are per contract
-  {qty:-1, dte: 20, strike: 85.00, type: true, price: 1.50},
+  {qty:-1, dte: 20, strike: 85.00, type: false, price: 1.50},
 ];
 
 
@@ -74,6 +74,13 @@ function clearTable(table){
   var rowCount = table.rows.length;
   for (var i = rowCount - 1; i > 0; i--){
     table.deleteRow(i);
+  }
+}
+
+function clearRow(row){
+  var colCount = row.cells.length;
+  for (var i = colCount - 1; i >= 0; i--){
+    row.deleteCell(i);
   }
 }
 
@@ -591,7 +598,6 @@ function renderPage(){
   cell.innerHTML = "edit";
   cell.className = "addDelete";
 
-/**************************************************************************************************/
   cell.onclick = function(){
     var table = document.getElementById("globalInfo");
     clearTable(table);
@@ -638,10 +644,6 @@ function renderPage(){
   table = document.getElementById("optionPositions");
   clearTable(table);
   if (options.length == 0){
-    var row = table.insertRow(-1);
-    var cell = row.insertCell(-1);
-    cell.innerHTML = "No options";
-    cell.colSpan = 6;
   } else {
     options.sort(
       function(a, b){
@@ -654,9 +656,17 @@ function renderPage(){
         }
       }
     )
+    var optionIdCounter = 0;
     options.forEach(function(option){
+      var optionId = optionIdCounter;
+      optionIdCounter++;
       var callPut = option.type ? "Call" : "Put"
-      var optionDescription = option.qty + " " + option.dte + "days " + option.strike + " " + callPut;
+      var defaultQty = option.qty,
+          defaultStrike = option.strike,
+          defaultType = option.type,
+          defaultDte = option.dte,
+          defaultPrice = option.price
+          thisOption = option;
       var row = table.insertRow(-1);
       var cell = row.insertCell(-1);
       cell.innerHTML = option.qty;
@@ -668,6 +678,64 @@ function renderPage(){
       cell.innerHTML = option.dte;
       cell = row.insertCell(-1);
       cell.innerHTML = "$" + numberWithCommas(option.price);
+      cell = row.insertCell(-1);
+      cell.innerHTML = "edit";
+      cell.className = "addDelete";
+      cell.onclick = function(){
+        // options.splice(options.indexOf(option), 1);
+        clearRow(row);
+        var cell = row.insertCell(-1);
+        var field = document.createElement("input");
+        field.setAttribute("id", "qtyInput" + optionId);
+        field.defaultValue = defaultQty;
+        cell.appendChild(field);
+        cell = row.insertCell(-1);
+        field = document.createElement("input");
+        field.setAttribute("id", "strikeInput" + optionId);
+        field.defaultValue = defaultStrike;
+        cell.appendChild(field);
+        cell = row.insertCell(-1);
+        field = document.createElement("select");
+        field.setAttribute("id", "typeInput" + optionId);
+        var option = document.createElement("option");
+        option.text = "Call";
+        option.value = true;
+        field.add(option);
+        option = document.createElement("option");
+        option.text = "Put";
+        option.value = false;
+        field.add(option);
+        field.selectedIndex = !defaultType;
+        cell.appendChild(field);
+        cell = row.insertCell(-1);
+        field = document.createElement("input");
+        field.setAttribute("id", "dteInput" + optionId);
+        field.defaultValue = defaultDte;
+        cell.appendChild(field);
+        cell = row.insertCell(-1);
+        field = document.createElement("input");
+        field.setAttribute("id", "priceInput" + optionId);
+        field.defaultValue = defaultPrice;
+        cell.appendChild(field);
+        cell = row.insertCell(-1);
+        cell.innerHTML = "save"
+        cell.className = "addDelete";
+        cell.onclick = function(){
+          var newOption = {};
+          newOption.qty = parseInt(document.getElementById('qtyInput' + optionId).value);
+          newOption.strike = parseFloat(document.getElementById('strikeInput' + optionId).value);
+          var e = document.getElementById('typeInput' + optionId);
+          newOption.type = e.options[e.selectedIndex].value == "true" ? true : false;
+          newOption.dte = parseInt(document.getElementById('dteInput' + optionId).value);
+          newOption.price = parseFloat(document.getElementById('priceInput' + optionId).value);
+          options.push(newOption);
+          options.splice(options.indexOf(thisOption),1);
+          renderPage();
+        }
+
+        /************************************************************************************************************/
+      }
+
       cell = row.insertCell(-1);
       cell.innerHTML = "delete"
       cell.className = "addDelete";
