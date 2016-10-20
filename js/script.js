@@ -105,7 +105,7 @@ function renderPage(){
       longPuts.push(copy);
     } else if (copy.qty < 0 && copy.type == false) {
       var standardUncovered = optStndReq * stockPrice - Math.max(stockPrice - copy.strike, 0);
-      var minimumUncovered = optMinReq * stockPrice;
+      var minimumUncovered = optMinReq * copy.strike;
       copy.uncoveredReq = (Math.max(standardUncovered, minimumUncovered) + copy.price) * optMulti;
       copy.coveredReq = Math.max(copy.strike - stockPrice, 0) * optMulti;
       shortPuts.push(copy);
@@ -734,8 +734,6 @@ function renderPage(){
           options.splice(options.indexOf(thisOption),1);
           renderPage();
         }
-
-        /************************************************************************************************************/
       }
 
       cell = row.insertCell(-1);
@@ -977,5 +975,7 @@ function renderPage(){
   cell.innerHTML = numberWithCommas(totalRequirement);
 
 }
+
+
 
 renderPage();
