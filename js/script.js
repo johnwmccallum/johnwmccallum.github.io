@@ -83,6 +83,17 @@ function clearRow(row){
   }
 }
 
+function clearLastTwoColumns(table){
+  var rowCount = table.rows.length;
+  for (var i = rowCount - 1; i > 0; i--){
+    var row = table.rows[i];
+    var colCount = row.cells.length;
+    for (var j = colCount - 1; j >= colCount - 2; j--){
+      row.deleteCell(j);
+    }
+  }
+}
+
 function renderPage(){
   var longCalls = [], // separate option positions array into four arrays
     shortCalls = [],
@@ -684,6 +695,8 @@ function renderPage(){
       cell.className = "addDelete";
       cell.onclick = function(){
         // options.splice(options.indexOf(option), 1);
+        var table = document.getElementById("optionPositions");
+        clearLastTwoColumns(table);
         clearRow(row);
         var cell = row.insertCell(-1);
         var field = document.createElement("input");
@@ -791,6 +804,8 @@ function renderPage(){
     options.push(newOption);
     renderPage();
   }
+  cell = row.insertCell(-1);
+  cell.innerHTML = "";
 
   table = document.getElementById("pairings");
   clearTable(table);
@@ -973,6 +988,8 @@ function renderPage(){
   cell = row.insertCell(-1);
   cell.className = "summary";
   cell.innerHTML = numberWithCommas(totalRequirement);
+
+console.log(nakedShorts);
 
 }
 
