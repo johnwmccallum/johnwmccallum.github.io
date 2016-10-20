@@ -4,9 +4,8 @@ var stockMain = 0.25;
 var optStndReq = 0.25;
 var optMinReq = 0.15;
 var optMulti = 100;
-var stockQty = 1000;
+var stockQty = 0;
 var options = [ // type: true means call, false means put // "Req's" are per contract
-  {qty:-1, dte: 20, strike: 85.00, type: false, price: 1.50},
 ];
 
 
