@@ -644,6 +644,7 @@ function renderPage(){
   clearTable(table);
   if (options.length == 0){
   } else {
+    /*
     options.sort(
       function(a, b){
         if (a.dte != b.dte){
@@ -655,6 +656,7 @@ function renderPage(){
         }
       }
     )
+    */
     var optionIdCounter = 0;
     options.forEach(function(option){
       var optionId = optionIdCounter;
@@ -727,7 +729,8 @@ function renderPage(){
           newOption.type = e.options[e.selectedIndex].value == "true" ? true : false;
           newOption.dte = parseInt(document.getElementById('dteInput' + optionId).value);
           newOption.price = parseFloat(document.getElementById('priceInput' + optionId).value);
-          options.push(newOption);
+          // options.push(newOption);
+          options.splice(optionId, 0, newOption)
           options.splice(options.indexOf(thisOption),1);
           renderPage();
         }
@@ -769,10 +772,12 @@ function renderPage(){
   cell = row.insertCell(-1);
   field = document.createElement("input");
   field.setAttribute("id", "dteInput");
+  field.defaultValue = 45;
   cell.appendChild(field);
   cell = row.insertCell(-1);
   field = document.createElement("input");
   field.setAttribute("id", "priceInput");
+  field.defaultValue = 5;
   cell.appendChild(field);
   cell = row.insertCell(-1);
   cell.innerHTML = "add"
