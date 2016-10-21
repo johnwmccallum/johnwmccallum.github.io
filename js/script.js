@@ -6,6 +6,7 @@ var optMinReq = 0.15;
 var optMulti = 100;
 var stockQty = 0;
 var options = [ // type: true means call, false means put // "Req's" are per contract
+  {qty: 1, strike: 120, type: true, dte: 45, price: 0.50},
 ];
 
 
@@ -95,6 +96,7 @@ function clearLastTwoColumns(table){
 }
 
 function renderPage(){
+  console.time('render');
   var longCalls = [], // separate option positions array into four arrays
     shortCalls = [],
     longPuts = [],
@@ -425,29 +427,7 @@ function renderPage(){
         legOfInterestFromSpreadMostRelief.qtyAvail -= stockHedgeQty;
         stockHedgeQty = 0;
       }
-      while (longsToRemove){ // remove 1 long for each short that was removed from spread
-        var longLegOfInterest = null,
-            limitStrike = accountIsLongStock ? 0 : 999999;
-
-        spreadWithMostRelief.legs.forEach(function(leg){
-          if (leg.qty > 0 && ((leg.type && leg.strike > limitStrike) || (!leg.type && leg.strike < limitStrike))){
-            limitStrike = leg.strike;
-            longLegOfInterest = leg;
-          }
-        });
-
-        if (longLegOfInterest.qtyAvail <= longsToRemove){
-          longsToRemove -= longLegOfInterest.qtyAvail;
-          unpairedLongs.push(longLegOfInterest);
-          spreadWithMostRelief.legs.splice(spreadWithMostRelief.legs.indexOf(longLegOfInterest),1);
-        } else {
-          var newOption = copyOption(longLegOfInterest);
-          longLegOfInterest.qtyAvail -= longsToRemove;
-          newOption.qty = newOption.qytAvail = longsToRemove;
-          longsToRemove = 0;
-          unpairedLongs.push(newOption);
-        }
-      }
+      removeLongsFromSpread(spreadWithMostRelief, accountIsLongStock, longsToRemove);
       spreadWithMostRelief.calculate();
     } else {
       if (nakedWithMostRelief){
@@ -466,6 +446,33 @@ function renderPage(){
         }
       } else {
         stockHedgeQty = 0;
+      }
+    }
+  }
+
+  function removeLongsFromSpread(spread, longType, qtyLongsToRemove){
+    var longsToRemove = qtyLongsToRemove;
+    while (longsToRemove){
+      var longLegOfInterest = null,
+          limitStrike = longType ? 0 : 999999;
+
+      spread.legs.forEach(function(leg){
+        if (leg.qtyAvail > 0 && ((leg.type && leg.strike > limitStrike) || (!leg.type && leg.strike < limitStrike))){
+          limitStrike = leg.strike;
+          longLegOfInterest = leg;
+        }
+      });
+
+      if (longLegOfInterest.qtyAvail <= longsToRemove){
+        longsToRemove -= longLegOfInterest.qtyAvail;
+        unpairedLongs.push(longLegOfInterest);
+        spread.legs.splice(spread.legs.indexOf(longLegOfInterest),1);
+      } else {
+        var newOption = copyOption(longLegOfInterest);
+        longLegOfInterest.qtyAvail -= longsToRemove;
+        newOption.qty = newOption.qytAvail = longsToRemove;
+        longsToRemove = 0;
+        unpairedLongs.push(newOption);
       }
     }
   }
@@ -492,6 +499,111 @@ function renderPage(){
   }
 
   var straddles = [];
+
+  var needToCheckSpreadsForNakedOptimization = universalSpreads.length && true;
+  while (needToCheckSpreadsForNakedOptimization){
+    var foundSpreadToSplitUp = false;
+    universalSpreads.forEach(function(universalSpread){
+      var bestImprovementFromSplit = 0,
+          legToSplit = null;
+      universalSpread.legs.forEach(function(i){
+        if (i.qty < 0){
+          var newSpreadLegs = [];
+          universalSpread.legs.forEach(function(j){
+            if (j != i){
+              newSpreadLegs.push(j);
+            }
+          });
+          var newSpread = new spread(newSpreadLegs);
+          improvementFromSplit = universalSpread.reqPerSpread - newSpread.reqPerSpread - i.uncoveredReq;
+          if (improvementFromSplit > bestImprovementFromSplit){
+            bestImprovementFromSplit = improvementFromSplit;
+            legToSplit = i;
+            foundSpreadToSplitUp = true;
+          }
+        }
+      });
+      if (legToSplit){
+        var uncoveredOptionArray = legToSplit.type ? uncoveredShortCalls : uncoveredShortPuts;
+        uncoveredOptionArray.push(legToSplit);
+        removeLongsFromSpread(universalSpread, legToSplit.type, legToSplit.qtyAvail);
+        universalSpread.legs.splice(universalSpread.legs.indexOf(legToSplit),1);
+        universalSpread.calculate();
+      }
+    });
+    needToCheckSpreadsForNakedOptimization = foundSpreadToSplitUp;
+  }
+
+  var needToCheckSpreadsForStraddleOptimization = universalSpreads.length && (uncoveredShortCalls.length || uncoveredShortPuts.length);
+  while (needToCheckSpreadsForStraddleOptimization){
+    var foundSpreadToSplitUp = false;
+    universalSpreads.forEach(function(universalSpread){
+      var bestImprovementFromSplit = 0,
+          legToSplit = null,
+          uncoveredForNewStraddle = null,
+          newStraddle = null,
+          iCopy = null,
+          qtyOfStraddles = 0,
+          uncoveredOptions = null;
+
+      universalSpread.legs.forEach(function(i){
+        if (i.qty < 0){
+          var newSpreadLegs = [];
+          universalSpread.legs.forEach(function(j){
+            if (j != i){
+              newSpreadLegs.push(j);
+            }
+          });
+          var newSpread = new spread(newSpreadLegs);
+          //find naked short with highest requirement that can be paired with this leg
+          uncoveredOptions = i.type ? uncoveredShortPuts : uncoveredShortCalls;
+          var maxReq = 0;
+          var uncoveredShortWithMaxReq = null;
+          if (uncoveredOptions.length){
+            uncoveredOptions.forEach(function(uncoveredOption){
+              if (uncoveredOption.uncoveredReq > maxReq){
+                maxReq = uncoveredOption.uncoveredReq;
+                uncoveredShortWithMaxReq = uncoveredOption;
+              }
+            });
+            //create potential straddle
+            qtyOfStraddles = Math.min(i.qtyAvail, uncoveredShortWithMaxReq.qtyAvail);
+            iCopy = copyOption(i);
+            uncoveredCopy = copyOption(uncoveredShortWithMaxReq);
+            iCopy.qty = uncoveredCopy.qty = qtyOfStraddles * -1;
+            iCopy.qtyAvail = uncoveredCopy.qtyAvail = qtyOfStraddles;
+            newStraddle = new straddle([iCopy, uncoveredCopy]);
+            improvementFromSplit = universalSpread.reqPerSpread + uncoveredCopy.uncoveredReq - newSpread.reqPerSpread - newStraddle.reqPerSpread;
+
+            if (improvementFromSplit > bestImprovementFromSplit){
+              bestImprovementFromSplit = improvementFromSplit;
+              legToSplit = i;
+              uncoveredForNewStraddle = uncoveredShortWithMaxReq;
+              foundSpreadToSplitUp = true;
+            }
+          }
+        }
+      });
+      if (legToSplit){
+        straddles.push(newStraddle);
+        removeLongsFromSpread(universalSpread, legToSplit.type, qtyOfStraddles);
+        legToSplit.qty += qtyOfStraddles;
+        legToSplit.qtyAvail -= qtyOfStraddles;
+        uncoveredForNewStraddle.qty += qtyOfStraddles;
+        uncoveredForNewStraddle.qtyAvail -= qtyOfStraddles;
+        if (legToSplit.qtyAvail == 0){
+          universalSpread.legs.splice(universalSpread.legs.indexOf(legToSplit),1);
+        }
+        universalSpread.calculate();
+        if (uncoveredForNewStraddle.qtyAvail == 0){
+          uncoveredOptions.splice(uncoveredOptions.indexOf(uncoveredForNewStraddle),1);
+        }
+
+      }
+    });
+    needToCheckSpreadsForStraddleOptimization = foundSpreadToSplitUp;
+  }
+
 
   while (uncoveredShortCalls.length && uncoveredShortPuts.length){
     // find highest requirement short call
@@ -988,9 +1100,7 @@ function renderPage(){
   cell = row.insertCell(-1);
   cell.className = "summary";
   cell.innerHTML = numberWithCommas(totalRequirement);
-
-console.log(nakedShorts);
-
+console.timeEnd('render');
 }
 
 
