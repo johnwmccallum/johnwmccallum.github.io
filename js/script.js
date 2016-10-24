@@ -96,6 +96,7 @@ function clearLastTwoColumns(table){
 }
 
 function renderPage(){
+
   console.time('render');
   var longCalls = [], // separate option positions array into four arrays
     shortCalls = [],
@@ -676,7 +677,20 @@ function renderPage(){
   });
 
   var sharesCovered = 0;
-  var totalStockAndCoveredReq = Math.abs(stockQty * stockPrice * stockRegT);
+
+  var totalStockAndCoveredReq;
+  if (stockQty >= 0){
+    if (stockPrice < 3.00){
+      stockRegT = 1;
+    }
+    totalStockAndCoveredReq = Math.abs(stockQty * stockPrice * stockRegT);
+  } else {
+    if (stockPrice > 5.00){
+      totalStockAndCoveredReq = Math.max(5.00, stockRegT * stockPrice) * Math.abs(stockQty);
+    } else {
+      totalStockAndCoveredReq = Math.max(2.50, stockPrice) * Math.abs(stockQty);
+    }
+  }
   optionsForCovereds.forEach(function(optionForCovered){
     sharesCovered += optionForCovered.qtyAvail * optMulti;
     totalStockAndCoveredReq += optionForCovered.coveredReq * optionForCovered.qtyAvail;
