@@ -854,9 +854,7 @@ function renderPage(){
           newOption.type = e.options[e.selectedIndex].value == "true" ? true : false;
           newOption.dte = parseInt(document.getElementById('dteInput' + optionId).value);
           newOption.price = parseFloat(document.getElementById('priceInput' + optionId).value);
-          // options.push(newOption);
-          options.splice(optionId, 0, newOption)
-          options.splice(options.indexOf(thisOption),1);
+          options.splice(optionId, 1, newOption)
           renderPage();
         }
       }
