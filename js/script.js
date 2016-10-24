@@ -6,7 +6,7 @@ var optMinReq = 0.15;
 var optMulti = 100;
 var stockQty = 0;
 var options = [ // type: true means call, false means put // "Req's" are per contract
-  {qty: 1, strike: 120, type: true, dte: 45, price: 0.50},
+  {qty: 1, strike: 100, type: true, dte: 45, price: 0.50},
 ];
 
 
@@ -873,10 +873,12 @@ function renderPage(){
   cell = row.insertCell(-1);
   var field = document.createElement("input");
   field.setAttribute("id", "qtyInput");
+  field.defaultValue = 1;
   cell.appendChild(field);
   cell = row.insertCell(-1);
   field = document.createElement("input");
   field.setAttribute("id", "strikeInput");
+  field.defaultValue = 100;
   cell.appendChild(field);
   cell = row.insertCell(-1);
   field = document.createElement("select");
