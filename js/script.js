@@ -98,6 +98,12 @@ function clearLastTwoColumns(table){
 
 function renderPage(){
 
+  if ((stockQty >= 0 && stockPrice < 3.00) || (stockQty < 0 && stockPrice <= 5.00)){
+    stockRegT = 1.00;
+  } else {
+    stockRegT = stockRegTStandard;
+  }
+
   console.time('render');
   var longCalls = [], // separate option positions array into four arrays
     shortCalls = [],
@@ -681,9 +687,6 @@ function renderPage(){
 
   var totalStockAndCoveredReq;
   if (stockQty >= 0){
-    if (stockPrice < 3.00){
-      stockRegT = 1;
-    }
     totalStockAndCoveredReq = Math.abs(stockQty * stockPrice * stockRegT);
   } else {
     if (stockPrice > 5.00){
