@@ -774,7 +774,7 @@ function renderPage(){
     cell.onclick = function(){
       stockPrice = parseFloat(document.getElementById('stockPriceInput').value);
       stockQty = parseInt(document.getElementById('stockQtyInput').value);
-      stockRegT = parseFloat(document.getElementById('stockRegTInput').value);
+      stockRegTStandard = parseFloat(document.getElementById('stockRegTInput').value);
       optStndReq = parseFloat(document.getElementById('optionStandardInput').value);
       optMinReq = parseFloat(document.getElementById('optionMinInput').value);
       renderPage();
