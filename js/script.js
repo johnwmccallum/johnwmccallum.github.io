@@ -1,5 +1,5 @@
 var stockPrice = 100.00;
-var stockRegTStandard = 0.6;
+var stockRegTStandard = 0.5;
 var stockRegT = stockRegTStandard;
 var stockMain = 0.25;
 var optStndReq = 0.25;
