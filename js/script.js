@@ -1,4 +1,4 @@
-var stockPrice = 110.00;
+var stockPrice = 102.00;
 var stockRegTStandard = 0.5;
 var stockRegT = stockRegTStandard;
 var stockMain = 0.25;
