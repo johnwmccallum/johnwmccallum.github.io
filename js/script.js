@@ -334,12 +334,17 @@ function renderPage(){
   while (shortCalls.length || shortPuts.length){ // try to create two leg spreads if any shorts exist
     var currentShort = findNexShortOption(shortCalls.length), // find next short (true means call, false means put)
         spreadQty = 0,
-        longForSpread = findLongForSpread(currentShort, true);
+        longForSpread = findLongForSpread(currentShort, true),
+        strikeDifference = 0; // true means find a Long for a debit spread
     if (!longForSpread){
-      longForSpread = findLongForSpread(currentShort, false);
+      longForSpread = findLongForSpread(currentShort, false); // false means find a Long for a credit spread
+      if (longForSpread){
+        strikeDifference = currentShort.type ? longForSpread.strike - currentShort.strike : currentShort.strike - longForSpread.strike;
+        strikeDifference = strikeDifference * optMulti;
+      }
     }
     var shortCopy = copyOption(currentShort);
-    if (longForSpread){ //create spread
+    if (longForSpread && currentShort.uncoveredReq > strikeDifference){ //create spread
       spreadQty = qtyHandler(longForSpread, currentShort);
       var longCopy = copyOption(longForSpread);
       longCopy.qty = longCopy.qtyAvail = shortCopy.qtyAvail = spreadQty;
