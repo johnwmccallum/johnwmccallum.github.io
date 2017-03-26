@@ -354,7 +354,7 @@ function renderPage(){
       if (spreadArrayShortDtes.indexOf(newSpread.shortDte) < 0){
         spreadArrayShortDtes.push(newSpread.shortDte);
       }
-      if (longForSpread.qty == 0){
+      if (longForSpread.qtyAvail == 0){
         var longArray = longForSpread.type ? longCalls : longPuts;
         longArray.splice(longArray.indexOf(longForSpread), 1);
       }
