@@ -513,7 +513,7 @@ function renderPage(){
 
   var straddles = [];
 
-  var needToCheckSpreadsForNakedOptimization = universalSpreads.length && true;
+  var needToCheckSpreadsForNakedOptimization = false; // universalSpreads.length && true;
   while (needToCheckSpreadsForNakedOptimization){
     var foundSpreadToSplitUp = false;
     universalSpreads.forEach(function(universalSpread){
@@ -547,7 +547,7 @@ function renderPage(){
     needToCheckSpreadsForNakedOptimization = foundSpreadToSplitUp;
   }
 
-  var needToCheckSpreadsForStraddleOptimization = universalSpreads.length && (uncoveredShortCalls.length || uncoveredShortPuts.length);
+  var needToCheckSpreadsForStraddleOptimization = false; // universalSpreads.length && (uncoveredShortCalls.length || uncoveredShortPuts.length);
   while (needToCheckSpreadsForStraddleOptimization){
     var foundSpreadToSplitUp = false;
     universalSpreads.forEach(function(universalSpread){
