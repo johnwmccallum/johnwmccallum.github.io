@@ -7,24 +7,7 @@ var optMinReq = 0.15;
 var optMulti = 100;
 var stockQty = 0;
 var options = [ // type: true means call, false means put // "Req's" are per contract
-{qty: -100, strike: 225, type: true, dte: 1, price: 12.69},
-{qty: -100, strike: 228, type: true, dte: 1, price: 9.7},
-{qty: 1120, strike: 230, type: true, dte: 1, price: 7.7},
-{qty: 1525, strike: 231, type: true, dte: 1, price: 6.71},
-{qty: 200, strike: 232, type: true, dte: 1, price: 5.68},
-{qty: -4560, strike: 233, type: true, dte: 1, price: 4.71},
-{qty: 100, strike: 225, type: true, dte: 3, price: 12.61},
-{qty: 100, strike: 228, type: true, dte: 3, price: 9.63},
-{qty: -1120, strike: 230, type: true, dte: 3, price: 7.64},
-{qty: -1525, strike: 231, type: true, dte: 3, price: 6.66},
-{qty: -200, strike: 232, type: true, dte: 3, price: 5.7},
-{qty: 4560, strike: 233, type: true, dte: 3, price: 4.73},
-{qty: -200, strike: 237.5, type: true, dte: 3, price: 1.08},
-{qty: -36, strike: 238, type: true, dte: 3, price: 0.84},
-{qty: -1400, strike: 240, type: true, dte: 3, price: 0.23},
-{qty: 200, strike: 237.5, type: true, dte: 8, price: 1.16},
-{qty: 36, strike: 238, type: true, dte: 8, price: 0.91},
-{qty: 1400, strike: 240, type: true, dte: 8, price: 0.27},
+
 {qty: -50, strike: 219, type: false, dte: 94, price: 2.03},
 {qty: 50, strike: 220, type: false, dte: 94, price: 2.15},
 {qty: 1035, strike: 187, type: false, dte: 3, price: 0.01},
