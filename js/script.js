@@ -356,7 +356,7 @@ function renderPage(){
     if (!longForSpread){
       longForSpread = findLongForSpread(currentShort, false); // false means find a Long for a credit spread
       if (longForSpread){
-        strikeDifference = currentShort.type ? longForSpread.strike - currentShort.strike : currentShort.strike - longForSpread.strike;
+        strikeDifference = 0; // currentShort.type ? longForSpread.strike - currentShort.strike : currentShort.strike - longForSpread.strike;
         strikeDifference = strikeDifference * optMulti;
       }
     }
