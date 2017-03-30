@@ -8,14 +8,6 @@ var optMulti = 100;
 var stockQty = 0;
 var options = [ // type: true means call, false means put // "Req's" are per contract
 {qty: -1, strike: 265 type: true dte: 3, price: 14.33},
-{qty: 0, strike: 300 type: true dte: 3, price: 0.77},
-{qty: -2, strike: 262.5 type: false dte: 3, price: 1.52},
-{qty: 1, strike: 267.5 type: false dte: 3, price: 2.6},
-{qty: -2, strike: 277.5 type: false dte: 3, price: 6.45},
-{qty: 1, strike: 287.5 type: false dte: 3, price: 12.85},
-{qty: -1, strike: 265 type: true dte: 17, price: 16.35},
-{qty: -1, strike: 275 type: true dte: 17, price: 10.05},
-{qty: -2, strike: 260 type: false dte: 17, price: 3.1},
 ];
 
 
