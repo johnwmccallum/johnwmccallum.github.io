@@ -7,9 +7,8 @@ var optMinReq = 0.15;
 var optMulti = 100;
 var stockQty = 0;
 var options = [ // type: true means call, false means put // "Req's" are per contract
-{qty: -1, strike: 265 type: true dte: 3, price: 14.33},
+  {qty: 1, strike: 100, type: true, dte: 45, price: 0.50},
 ];
-
 
 // option constructor
 function option(){
@@ -95,6 +94,7 @@ function clearLastTwoColumns(table){
     }
   }
 }
+
 
 function renderPage(){
 
@@ -275,12 +275,12 @@ function renderPage(){
       strikes.forEach(function(strike){
           var netIntrinsic = 0;
           legs.forEach(function(leg){
-          if (leg.type){ // if it's a call
-              netIntrinsic += Math.max(0,(strike - leg.strike)) * leg.qty * optMulti;
-          } else { // if it's a put
-              netIntrinsic += Math.max(0,(leg.strike - strike)) * leg.qty * optMulti;
-          }
-        });
+            if (leg.type){ // if it's a call
+                netIntrinsic += Math.max(0,(strike - leg.strike)) * leg.qty * optMulti;
+            } else { // if it's a put
+                netIntrinsic += Math.max(0,(leg.strike - strike)) * leg.qty * optMulti;
+            }
+          });
         maxReq = Math.max(maxReq, Math.abs(Math.min(0, netIntrinsic)));
         if (hasCalls == true && hasPuts == false && strike == highStrike){
               relief = Math.max(netIntrinsic,0);
@@ -339,7 +339,7 @@ function renderPage(){
     if (!longForSpread){
       longForSpread = findLongForSpread(currentShort, false); // false means find a Long for a credit spread
       if (longForSpread){
-        strikeDifference = 0; // currentShort.type ? longForSpread.strike - currentShort.strike : currentShort.strike - longForSpread.strike;
+        strikeDifference = currentShort.type ? longForSpread.strike - currentShort.strike : currentShort.strike - longForSpread.strike;
         strikeDifference = strikeDifference * optMulti;
       }
     }
@@ -354,7 +354,7 @@ function renderPage(){
       if (spreadArrayShortDtes.indexOf(newSpread.shortDte) < 0){
         spreadArrayShortDtes.push(newSpread.shortDte);
       }
-      if (longForSpread.qtyAvail == 0){
+      if (longForSpread.qty == 0){
         var longArray = longForSpread.type ? longCalls : longPuts;
         longArray.splice(longArray.indexOf(longForSpread), 1);
       }
@@ -547,7 +547,7 @@ function renderPage(){
     needToCheckSpreadsForNakedOptimization = foundSpreadToSplitUp;
   }
 
-  var needToCheckSpreadsForStraddleOptimization = false; // universalSpreads.length && (uncoveredShortCalls.length || uncoveredShortPuts.length);
+  var needToCheckSpreadsForStraddleOptimization = false; //universalSpreads.length && (uncoveredShortCalls.length || uncoveredShortPuts.length);
   while (needToCheckSpreadsForStraddleOptimization){
     var foundSpreadToSplitUp = false;
     universalSpreads.forEach(function(universalSpread){
