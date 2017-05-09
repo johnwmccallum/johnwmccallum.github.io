@@ -653,8 +653,8 @@ function renderPage(){
       currentUncoveredPut.qtyAvail = 0;
     }
     var legs =[callCopy, putCopy];
-    var straddle = new straddle(legs);
-    straddles.push(straddle);
+    var newStraddle = new straddle(legs);
+    straddles.push(newStraddle);
 
     if (currentUncoveredCall.qtyAvail == 0){
       uncoveredShortCalls.splice(uncoveredShortCalls.indexOf(currentUncoveredCall), 1);
