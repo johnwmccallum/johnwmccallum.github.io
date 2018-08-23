@@ -42,7 +42,7 @@ $(function () {
     optionCappedCommissionPerLegTw = 10,
 
     stockBaseChargeTw = 5,
-    stockPerShareChargeTw = 0,
+    stockPerShareChargeTw = 0.0008,
     hasStockMinimumChargeTw = false,
     stockMinimumChargeTw = 0,
     stockFreeToCloseTw = true,
@@ -57,6 +57,7 @@ $(function () {
     futureOptionAdditionalFeesTw = 0.3;
 
   var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = null;
 
   function reInitializeGlobals(){
     roundTripOptionsPerYear = parseFloat($('#roundTripOptionsPerYear').val()) || 0;
@@ -121,7 +122,10 @@ $(function () {
     }
 
     function createChart(obComm, twComm){
-      var myChart = new Chart(ctx, {
+      if (myChart) {
+        myChart.destroy();
+      }
+      myChart = new Chart(ctx, {
           type: 'bar',
           data: {
               labels: ["other brokerage", "tastyworks"],
@@ -164,6 +168,9 @@ $(function () {
                   xAxes: [{
                     gridLines: {
                         color: "rgba(0, 0, 0, 0)",
+                    },
+                    ticks: {
+                        fontSize:16
                     }
                 }]
               }
@@ -182,7 +189,8 @@ $(function () {
     $('#stockRoundTripString').html(stockRoundTripString);
     stockRoundTripOb = calculateRoundTripCost(avgOptionQuantityPerTrade, stockBaseChargeOb, stockPerShareChargeOb, hasStockMinimumChargeOb, stockMinimumChargeOb, 0, stockFreeToCloseOb, false, 0);
     $('#stockRoundTripOb').html('$' + formatNumber(stockRoundTripOb));
-    stockRoundTripTw = calculateRoundTripCost(avgOptionQuantityPerTrade, stockBaseChargeTw, stockPerShareChargeTw, false, stockMinimumChargeTw, 0, stockFreeToCloseTw, false, 0);
+    //stockRoundTripTw = calculateRoundTripCost(avgStockQuantityPerTrade, stockBaseChargeTw, stockPerShareChargeTw, false, stockMinimumChargeTw, 0, stockFreeToCloseTw, false, 0);
+    stockRoundTripTw = avgStockQuantityPerTrade * stockPerShareChargeTw * 2 + stockBaseChargeTw;
     $('#stockRoundTripTw').html('$' + formatNumber(stockRoundTripTw));
     futureRoundTripString = "Round Trip Commissions on " + avgFutureQuantityPerTrade + " Contract(s)";
     $('#futureRoundTripString').html(futureRoundTripString);
