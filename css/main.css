@@ -39,6 +39,10 @@ td {
   margin-top:30px;
 }
 
+.bold{
+  font-weight: bold;
+}
+
 .brokerCell {
   padding-left: 15px;
   padding-right: 15px;
@@ -75,10 +79,16 @@ td img {
   font-weight: bold;
 }
 
+.bad{
+  color:#E12529;
+  font-weight: bold;
+}
+
 .Category{
   width: 100px;
   margin: 0 auto;
   text-align:center;
+  font-weight: bold;
 }
 
 .optionCategory {
