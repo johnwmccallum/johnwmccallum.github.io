@@ -60,6 +60,7 @@ tr td:nth-child(n+2){
 .tdLeft {
   text-align: left !important;
   padding-left: 15px;
+  min-width:250px;
 }
 
 input {

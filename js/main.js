@@ -21,7 +21,7 @@ $(function () {
     stockPerShareChargeOb = parseFloat($('#stockPerShareChargeOb').val()) || 0,
     hasStockMinimumChargeOb = $('#hasStockMinimumChargeOb').prop('checked'),
     stockMinimumChargeOb = parseFloat($('#stockMinimumChargeOb').val()) || 0,
-    stockFreeToCloseOb = $('#optionCappedCommissionOb').prop('checked'),
+    stockFreeToCloseOb = $('#stockFreeToCloseOb').prop('checked'),
 
     futureBaseChargeOb = parseFloat($('#futureBaseChargeOb').val()) || 0,
     futurePerContractChargeOb = parseFloat($('#futurePerContractChargeOb').val()) || 0,
@@ -29,7 +29,7 @@ $(function () {
 
     futureOptionBaseChargeOb = parseFloat($('#futureOptionBaseChargeOb').val()) || 0,
     futureOptionPerContractChargeOb = parseFloat($('#futureOptionPerContractChargeOb').val()) || 0,
-    futureOptionFreeToCloseOb = $('#optionCappedCommissionOb').prop('checked'),
+    futureOptionFreeToCloseOb = $('#futureOptionFreeToCloseOb').prop('checked'),
     futureOptionAdditionalFeesOb = parseFloat($('#futureOptionAdditionalFeesOb').val()) || 0,
 
     optionBaseChargeTw = 0,
@@ -80,7 +80,7 @@ $(function () {
     stockPerShareChargeOb = parseFloat($('#stockPerShareChargeOb').val()) || 0;
     hasStockMinimumChargeOb = $('#hasStockMinimumChargeOb').prop('checked');
     stockMinimumChargeOb = parseFloat($('#stockMinimumChargeOb').val()) || 0;
-    stockFreeToCloseOb = $('#optionCappedCommissionOb').prop('checked');
+    stockFreeToCloseOb = $('#stockFreeToCloseOb').prop('checked');
 
     futureBaseChargeOb = parseFloat($('#futureBaseChargeOb').val()) || 0;
     futurePerContractChargeOb = parseFloat($('#futurePerContractChargeOb').val()) || 0;
@@ -88,7 +88,7 @@ $(function () {
 
     futureOptionBaseChargeOb = parseFloat($('#futureOptionBaseChargeOb').val()) || 0;
     futureOptionPerContractChargeOb = parseFloat($('#futureOptionPerContractChargeOb').val()) || 0;
-    futureOptionFreeToCloseOb = $('#optionCappedCommissionOb').prop('checked');
+    futureOptionFreeToCloseOb = $('#futureOptionFreeToCloseOb').prop('checked');
     futureOptionAdditionalFeesOb = parseFloat($('#futureOptionAdditionalFeesOb').val()) || 0;
   }
 
