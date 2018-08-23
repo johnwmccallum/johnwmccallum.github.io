@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Commission Comparison</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600' rel='stylesheet' type='text/css'>
+	   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="main.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div class="half">
+        <form>
+          <table width="100%">
+            <tr class="blackRow">
+              <td colspan="3">
+                <h1>How much do you trade?</h1>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="Category optionCategory">
+                Options
+              </td>
+              <td class="tdLeft">
+                Option Trades per Year (Round Trips)
+              </td>
+              <td>
+                <input id="roundTripOptionsPerYear" class="inputNumber" type="number" value="500" />
+              </td>
+            </tr>
+            <tr>
+              <td class="tdLeft">
+                Average Contracts per Trade
+              </td>
+              <td>
+                <input id="avgOptionQuantityPerTrade" class="inputNumber" type="number" value="20" />
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="Category stockCategory">
+                Stock
+              </td>
+              <td class="tdLeft">
+                Stock Trades per Year (Round Trips)
+              </td>
+              <td>
+                <input id="roundTripStocksPerYear" class="inputNumber" type="number" value="50" />
+              </td>
+            </tr>
+            <tr>
+              <td class="tdLeft">
+                Average Shares per Trade
+              </td>
+              <td>
+                <input id="avgStockQuantityPerTrade" class="inputNumber" type="number" value="1000" />
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="2" class="Category futureCategory">
+                Futures
+              </td>
+              <td class="tdLeft">
+                Futures Trades per Year (Round Trips)
+              </td>
+              <td>
+                <input id="roundTripFuturesPerYear" class="inputNumber" type="number" value="200" />
+              </td>
+            </tr>
+            <tr>
+              <td class="tdLeft">
+                Average Contracts per Trade
+              </td>
+              <td>
+                <input id="avgFutureQuantityPerTrade" class="inputNumber" type="number" value="2" />
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="tdLeft">
+                What is the size of your account?
+              </td>
+              <td>
+                <input id="accountSize" class="inputNumber" type="number" value="100000" />
+              </td>
+            </tr>
+          </table>
+        </form>
+        <br  />
+        <form>
+          <table>
+            <tr class="blackRow">
+              <td colspan="2">
+                <h1>Commission Structure</h1>
+              </td>
+              <td class="brokerCell">
+                other<br />brokerage
+              </td>
+              <td class="brokerCell">
+                tastyworks
+              </td>
+            </tr>
+            <tr class="optionRow">
+              <td class="Category optionCategory" id="optionCommission">
+                Options
+              </td>
+              <td class="tdLeft">
+                Base/Ticket Charge
+              </td>
+              <td>
+                <input id="optionBaseChargeOb" class="inputNumber" type="number" value="4.95" />
+              </td>
+              <td>
+                $0.00
+              </td>
+            </tr>
+            <tr class="optionRow">
+              <td class="tdLeft">
+                Per Contract
+              </td>
+              <td>
+                <input id="optionPerContractChargeOb" class="inputNumber" type="number" value="0.5" />
+              </td>
+              <td>
+                $1.00
+              </td>
+            </tr>
+            <tr class="optionRow">
+              <td class="tdLeft">
+                Is There a Minimum Charge?
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="hasOptionMinimumChargeOb">
+                  <label class="onoffswitch-label" for="hasOptionMinimumChargeOb">
+                    <span class="onoffswitch-inner yes-bad"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                No
+              </td>
+            </tr>
+            <tr id="optionMinChargeRow" class="optionRow">
+              <td class="tdLeft">
+                Minimum Charge (if applicable)
+              </td>
+              <td>
+                <input id="optionMinimumChargeOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $0.00
+              </td>
+            </tr>
+            <tr class="optionRow">
+              <td class="tdLeft">
+                Other Fees (Per Contract)
+              </td>
+              <td>
+                <input id="optionAdditionalFeesOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $0.10
+              </td>
+            </tr>
+            <tr class="optionRow">
+              <td class="tdLeft">
+                Free to Close Positions?
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="optionFreeToCloseOb">
+                  <label class="onoffswitch-label" for="optionFreeToCloseOb">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                Yes
+              </td>
+            </tr>
+            <tr class="hiddenRow optionRow">
+              <td class="tdLeft">
+                Capped Commission?
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="optionCappedCommissionOb">
+                  <label class="onoffswitch-label" for="optionCappedCommissionOb">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                Yes
+              </td>
+            </tr>
+            <tr class="hiddenRow optionRow">
+              <td class="tdLeft">
+                What is the capped commission, per leg?
+              </td>
+              <td>
+                <input id="optionCappedCommissionPerLegOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $10.00
+              </td>
+            </tr>
+            <tr class="stockRow">
+              <td class="Category stockCategory" id="stockCommission">
+                Stock
+              </td>
+              <td class="tdLeft">
+                Base/Ticket Charge
+              </td>
+              <td>
+                <input id="stockBaseChargeOb" class="inputNumber" type="number" value="10" />
+              </td>
+              <td>
+                $5.00
+              </td>
+            </tr>
+            <tr class="stockRow">
+              <td class="tdLeft">
+                Per Share (if applicable)
+              </td>
+              <td>
+                <input id="stockPerShareChargeOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $0.00
+              </td>
+            </tr>
+            <tr class="stockRow">
+              <td class="tdLeft">
+                Is There a Minimum Charge?
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="hasStockMinimumChargeOb">
+                  <label class="onoffswitch-label" for="hasStockMinimumChargeOb">
+                    <span class="onoffswitch-inner yes-bad"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                No
+              </td>
+            </tr>
+            <tr id="stockMinChargeRow" class="stockRow">
+              <td>
+                Minimum Charge (if applicable)
+              </td>
+              <td>
+                <input id="stockMinimumChargeOb" class="inputNumber" type="number" value="10" />
+              </td>
+              <td>$0.00</td>
+            </tr>
+            <tr class="stockRow">
+              <td class="tdLeft">
+                Free to Close Position?
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="stockFreeToCloseOb">
+                  <label class="onoffswitch-label" for="stockFreeToCloseOb">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                Yes
+              </td>
+            </tr>
+            <tr class="futureRow">
+              <td class="Category futureCategory" id="futureCommission">
+                Futures
+              </td>
+            </tr>
+            <tr class="futureRow">
+              <td class="tdLeft">
+                Base/Ticket Charge
+              </td>
+              <td>
+                <input id="futureBaseChargeOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $0.00
+              </td>
+            </tr>
+            <tr class="futureRow">
+              <td class="tdLeft">
+                Per Contract Rate
+              </td>
+              <td>
+                <input id="futurePerContractChargeOb" class="inputNumber" type="number" value="2.5" />
+              </td>
+              <td>
+                $1.25
+              </td>
+            </tr>
+            <tr class="futureRow">
+              <td class="tdLeft">
+                Other Fees (Per Contract)
+              </td>
+              <td>
+                <input id="futureAdditionalFeesOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $0.30
+              </td>
+            </tr>
+            <tr class="futureOptionRow">
+              <td class="Category futureOptionCategory" id="futureOptionCommission">
+                Futures Options
+              </td>
+            </tr>
+            <tr class="futureOptionRow">
+              <td class="tdLeft">
+                Base/Ticket Charge
+              </td>
+              <td>
+                <input id="futureOptionBaseChargeOb" class="inputNumber" type="number" value="0" />
+              </td>
+              <td>
+                $0.00
+              </td>
+            </tr>
+            <tr class="futureOptionRow">
+              <td class="tdLeft">
+                Per Contract Rate
+              </td>
+              <td>
+                <input id="futureOptionPerContractChargeOb" class="inputNumber" type="number" value="2.5" />
+              </td>
+              <td>
+                $1.00
+              </td>
+            </tr>
+            <tr class="futureOptionRow">
+              <td class="tdLeft">
+                Free to Close
+              </td>
+              <td>
+                <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="futureOptionFreeToCloseOb">
+                  <label class="onoffswitch-label" for="futureOptionFreeToCloseOb">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                Yes
+              </td>
+            </tr>
+            <tr class="futureOptionRow">
+              <td class="tdLeft">
+                Other Fees (Per Contract)
+              </td>
+              <td>
+                <input id="futureOptionAdditionalFeesOb" class="inputNumber" type="number" value=0 />
+              </td>
+              <td>
+                $0.30
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <div class="half">
+        <table>
+          <tr class="blackRow">
+            <td colspan="2">
+              <h1>Round Trip Calculations</h1>
+            </td>
+            <td class="brokerCell">
+              other<br />brokerage
+            </td>
+            <td class="brokerCell">tastyworks</td>
+          </tr>
+          <tr>
+            <td class="Category optionCategory">
+              Options
+            </td>
+            <td class="tdLeft" id="optionRoundTripString"></td>
+            <td id="optionRoundTripOb"></td>
+            <td id="optionRoundTripTw"></td>
+          </tr>
+          <tr>
+            <td class="Category stockCategory">
+              Stock
+            </td>
+            <td class="tdLeft" id="stockRoundTripString"></td>
+            <td id="stockRoundTripOb"></td>
+            <td id="stockRoundTripTw"></td>
+          </tr>
+          <tr>
+            <td class="Category futureCategory">
+              Futures
+            </td>
+            <td class="tdLeft" id="futureRoundTripString"></td>
+            <td id="futureRoundTripOb"></td>
+            <td id="futureRoundTripTw"> </td>
+          </tr>
+          <tr><td></td></tr>
+          <tr class="blackRow">
+            <td colspan="2">
+              <h1>Year End Estimates</h1>
+            </td>
+            <td class="brokerCell">
+              other<br />brokerage
+            </td>
+            <td class="brokerCell">tastyworks</td>
+          </tr>
+          <tr>
+            <td class="Category optionCategory">
+              Options
+            </td>
+            <td class="tdLeft"  id="optionYearEndString"></td>
+            <td id="optionYearEndOb"></td>
+            <td id="optionYearEndTw"></td>
+          </tr>
+          <tr>
+            <td class="Category stockCategory">
+              Stock
+            </td>
+            <td class="tdLeft"  id="stockYearEndString"></td>
+            <td id="stockYearEndOb"></td>
+            <td id="stockYearEndTw"></td>
+          </tr>
+          <tr>
+            <td class="Category futureCategory">
+              Futures
+            </td>
+            <td class="tdLeft"  id="futureYearEndString"></td>
+            <td id="futureYearEndOb"></td>
+            <td id="futureYearEndTw"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="tdLeft" >Total Estimated Commissions</td>
+            <td id="totalEstimatedCommissionsOb"></td>
+            <td id="totalEstimatedCommissionsTw"></td>
+          </tr>
+        </table>
+
+
+        <canvas id="myChart" width="400" height="245"></canvas>
+
+
+
+      </div>
+    </div>
+
+  </body>
+</html>
