@@ -59,6 +59,7 @@ $(function () {
   var ctx = document.getElementById("myChart").getContext('2d');
 
   function reInitializeGlobals(){
+    roundTripOptionsPerYear = parseFloat($('#roundTripOptionsPerYear').val()) || 0;
     avgOptionQuantityPerTrade = parseFloat($('#avgOptionQuantityPerTrade').val()) || 0;
     roundTripStocksPerYear = parseFloat($('#roundTripStocksPerYear').val()) || 0;
     avgStockQuantityPerTrade = parseFloat($('#avgStockQuantityPerTrade').val()) || 0;
@@ -250,13 +251,9 @@ $(function () {
   }
 
   updatePage();
-  $('.inputNumber').keyup(updatePage);
-  $('.inputNumber').change(updatePage);
+  $('input[type=number]').keyup(updatePage);
+  $('input[type=number]').change(updatePage);
   $(":checkbox").change(updatePage);
-
-
-
-
 
 
 
