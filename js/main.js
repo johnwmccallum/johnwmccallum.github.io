@@ -189,21 +189,18 @@ $(function () {
     $('#futureRoundTripOb').html('$' + formatNumber(futureRoundTripOb));
     futureRoundTripTw = calculateRoundTripCost(avgFutureQuantityPerTrade, futureBaseChargeTw, futurePerContractChargeTw, false, 0, 0, false, false, 0);
     $('#futureRoundTripTw').html('$' + formatNumber(futureRoundTripTw));
-    //optionYearEndString = "Options commissions on " + roundTripOptionsPerYear + " round trips of " + avgOptionQuantityPerTrade  + " lots"
     optionYearEndString = "Options commissions on " + roundTripOptionsPerYear + " round trips"
     $('#optionYearEndString').html(optionYearEndString);
     optionYearEndOb = roundTripOptionsPerYear * optionRoundTripOb
     $('#optionYearEndOb').html('$' + formatNumber(optionYearEndOb));
     optionYearEndTw = roundTripOptionsPerYear * optionRoundTripTw
     $('#optionYearEndTw').html('$' + formatNumber(optionYearEndTw));
-    //stockYearEndString = "Estimated stock commissions for " + roundTripStocksPerYear + " round turns of " + avgStockQuantityPerTrade  + " shares"
     stockYearEndString = "Stock commissions on " + roundTripStocksPerYear + " round trips"
     $('#stockYearEndString').html(stockYearEndString);
     stockYearEndOb = roundTripStocksPerYear * stockRoundTripOb
     $('#stockYearEndOb').html('$' + formatNumber(stockYearEndOb));
     stockYearEndTw = roundTripStocksPerYear * stockRoundTripTw
     $('#stockYearEndTw').html('$' + formatNumber(stockYearEndTw));
-    //futureYearEndString = "Estimated futures commissions for " + roundTripFuturesPerYear + " round turns of " + avgFutureQuantityPerTrade  + " contracts"
     futureYearEndString = "Futures commissions on " + roundTripFuturesPerYear + " round trips"
     $('#futureYearEndString').html(futureYearEndString);
     futureYearEndOb = roundTripFuturesPerYear * futureRoundTripOb
@@ -217,13 +214,6 @@ $(function () {
     createChart(totalEstimatedCommissionsOb, totalEstimatedCommissionsTw);
   }
 
-jQuery.fn.showV = function() {
-    this.css('visibility', 'visible');
-}
-
-jQuery.fn.hideV = function() {
-    this.css('visibility', 'hidden');
-}
 
   function showHide(){
     if (hasOptionMinimumChargeOb || hasOptionMinimumChargeTw){
@@ -236,24 +226,21 @@ jQuery.fn.hideV = function() {
     } else {
       $('#stockMinChargeRow').hide();
     }
+    console.log(optionCappedCommissionOb)
+    if (optionCappedCommissionOb){
+      $('#optionCappedRow').show();
+    } else {
+      $('#optionCappedRow').hide();
+    }
+
   }
 
   function updateRowspan(){
-    /*
-    var visCount = 0;
-    $('.optionRow').each(function() {
-      if ($(this).css('display') != 'none'){
-        visCount += 1;
-      }
-    });
-    */
     $('#optionCommission').attr('rowspan', $(".optionRow:visible").length);
     $('#stockCommission').attr('rowspan', $(".stockRow:visible").length);
     $('#futureCommission').attr('rowspan', $(".futureRow:visible").length);
     $('#futureOptionCommission').attr('rowspan', $(".futureOptionRow:visible").length);
   }
-
-
 
   function updatePage(){
     reInitializeGlobals();
@@ -261,8 +248,6 @@ jQuery.fn.hideV = function() {
     populateValues();
     updateRowspan();
   }
-
-  createChart(12, 12);
 
   updatePage();
   $('.inputNumber').keyup(updatePage);

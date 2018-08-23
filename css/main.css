@@ -1,5 +1,6 @@
 body{
   font-family: "Open Sans", Trebuchet MS, Helvetica, sans-serif;
+  font-size: 16px;
 }
 
 h1{
@@ -55,9 +56,6 @@ tr td:nth-child(n+2){
 }
 
 
-td input.inputNumber {
-  text-align: center;
-}
 
 .tdLeft {
   text-align: left !important;
@@ -67,6 +65,40 @@ td input.inputNumber {
 input {
     text-align: center;
     max-width: 90px;
+}
+
+input[type=number] {
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type=number]:focus {
+
+}
+input[type=number].optionInput{
+  border-bottom: 1px solid #B01A1F;
+  color:#B01A1F;
+  text-align: center;
+}
+input[type=number].optionInput:focus{
+  border: 1px solid #B01A1F;
+}
+input[type=number].stockInput{
+  border-bottom: 1px solid #E12529;
+  color:#E12529;
+  text-align: center;
+}
+input[type=number].stockInput:focus{
+  border: 1px solid #E12529;
+}
+input[type=number].futureInput{
+  border-bottom: 1px solid #808080;
+  color:#808080;
+  text-align: center;
+}
+input[type=number].futureInput:focus{
+  border: 1px solid #808080;
 }
 
 td img {

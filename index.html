@@ -28,7 +28,7 @@
                 Option Trades per Year (Round Trips)
               </td>
               <td>
-                <input id="roundTripOptionsPerYear" class="inputNumber" type="number" value="500" />
+                <input id="roundTripOptionsPerYear" class="optionInput" type="number" value="500" />
               </td>
             </tr>
             <tr>
@@ -36,7 +36,7 @@
                 Average Contracts per Trade
               </td>
               <td>
-                <input id="avgOptionQuantityPerTrade" class="inputNumber" type="number" value="20" />
+                <input id="avgOptionQuantityPerTrade" class="optionInput" type="number" value="20" />
               </td>
             </tr>
             <tr>
@@ -47,7 +47,7 @@
                 Stock Trades per Year (Round Trips)
               </td>
               <td>
-                <input id="roundTripStocksPerYear" class="inputNumber" type="number" value="50" />
+                <input id="roundTripStocksPerYear" class="stockInput" type="number" value="50" />
               </td>
             </tr>
             <tr>
@@ -55,7 +55,7 @@
                 Average Shares per Trade
               </td>
               <td>
-                <input id="avgStockQuantityPerTrade" class="inputNumber" type="number" value="1000" />
+                <input id="avgStockQuantityPerTrade" class="stockInput" type="number" value="1000" />
               </td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
                 Futures Trades per Year (Round Trips)
               </td>
               <td>
-                <input id="roundTripFuturesPerYear" class="inputNumber" type="number" value="200" />
+                <input id="roundTripFuturesPerYear" class="futureInput" type="number" value="200" />
               </td>
             </tr>
             <tr>
@@ -74,7 +74,7 @@
                 Average Contracts per Trade
               </td>
               <td>
-                <input id="avgFutureQuantityPerTrade" class="inputNumber" type="number" value="2" />
+                <input id="avgFutureQuantityPerTrade" class="futureInput" type="number" value="2" />
               </td>
             </tr>
             <tr class="hiddenRow">
@@ -114,7 +114,7 @@
                 Base/Ticket Charge
               </td>
               <td>
-                <input id="optionBaseChargeOb" class="inputNumber" type="number" value="4.95" />
+                <input id="optionBaseChargeOb" class="optionInput" type="number" value="4.95" />
               </td>
               <td>
                 $0.00
@@ -125,10 +125,21 @@
                 Per Contract
               </td>
               <td>
-                <input id="optionPerContractChargeOb" class="inputNumber" type="number" value="0.5" />
+                <input id="optionPerContractChargeOb" class="optionInput" type="number" value="0.5" />
               </td>
               <td>
                 $1.00
+              </td>
+            </tr>
+            <tr class="optionRow">
+              <td class="tdLeft">
+                Other Fees (Per Contract)
+              </td>
+              <td>
+                <input id="optionAdditionalFeesOb" class="optionInput" type="number" value="0" />
+              </td>
+              <td>
+                $0.10
               </td>
             </tr>
             <tr class="optionRow">
@@ -153,21 +164,10 @@
                 Minimum Charge (if applicable)
               </td>
               <td>
-                <input id="optionMinimumChargeOb" class="inputNumber" type="number" value="0" />
+                <input id="optionMinimumChargeOb" class="optionInput" type="number" value="0" />
               </td>
               <td>
                 $0.00
-              </td>
-            </tr>
-            <tr class="optionRow">
-              <td class="tdLeft">
-                Other Fees (Per Contract)
-              </td>
-              <td>
-                <input id="optionAdditionalFeesOb" class="inputNumber" type="number" value="0" />
-              </td>
-              <td>
-                $0.10
               </td>
             </tr>
             <tr class="optionRow">
@@ -187,7 +187,7 @@
                 Yes
               </td>
             </tr>
-            <tr class="hiddenRow optionRow">
+            <tr class="optionRow">
               <td class="tdLeft">
                 Capped Commission?
               </td>
@@ -204,12 +204,12 @@
                 Yes
               </td>
             </tr>
-            <tr class="hiddenRow optionRow">
+            <tr class="optionRow" id="optionCappedRow">
               <td class="tdLeft">
-                What is the capped commission, per leg?
+                Capped Amount (Per Leg)
               </td>
               <td>
-                <input id="optionCappedCommissionPerLegOb" class="inputNumber" type="number" value="0" />
+                <input id="optionCappedCommissionPerLegOb" class="optionInput" type="number" value="20" />
               </td>
               <td>
                 $10.00
@@ -224,7 +224,7 @@
                 Base/Ticket Charge
               </td>
               <td>
-                <input id="stockBaseChargeOb" class="inputNumber" type="number" value="10" />
+                <input id="stockBaseChargeOb" class="stockInput" type="number" value="10" />
               </td>
               <td>
                 $5.00
@@ -235,7 +235,7 @@
                 Per Share (if applicable)
               </td>
               <td>
-                <input id="stockPerShareChargeOb" class="inputNumber" type="number" value="0" />
+                <input id="stockPerShareChargeOb" class="stockInput" type="number" value="0" />
               </td>
               <td>
                 $0.00
@@ -259,11 +259,11 @@
               </td>
             </tr>
             <tr id="stockMinChargeRow" class="stockRow">
-              <td>
+              <td class="tdLeft">
                 Minimum Charge (if applicable)
               </td>
               <td>
-                <input id="stockMinimumChargeOb" class="inputNumber" type="number" value="10" />
+                <input id="stockMinimumChargeOb" class="stockInput" type="number" value="10" />
               </td>
               <td>$0.00</td>
             </tr>
@@ -295,7 +295,7 @@
                 Base/Ticket Charge
               </td>
               <td>
-                <input id="futureBaseChargeOb" class="inputNumber" type="number" value="0" />
+                <input id="futureBaseChargeOb" class="futureInput" type="number" value="0" />
               </td>
               <td>
                 $0.00
@@ -306,7 +306,7 @@
                 Per Contract Rate
               </td>
               <td>
-                <input id="futurePerContractChargeOb" class="inputNumber" type="number" value="2.5" />
+                <input id="futurePerContractChargeOb" class="futureInput" type="number" value="2.5" />
               </td>
               <td>
                 $1.25
@@ -317,7 +317,7 @@
                 Other Fees (Per Contract)
               </td>
               <td>
-                <input id="futureAdditionalFeesOb" class="inputNumber" type="number" value="0" />
+                <input id="futureAdditionalFeesOb" class="futureInput" type="number" value="0" />
               </td>
               <td>
                 $0.30
