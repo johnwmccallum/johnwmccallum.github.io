@@ -189,7 +189,6 @@ $(function () {
     $('#stockRoundTripString').html(stockRoundTripString);
     stockRoundTripOb = calculateRoundTripCost(avgOptionQuantityPerTrade, stockBaseChargeOb, stockPerShareChargeOb, hasStockMinimumChargeOb, stockMinimumChargeOb, 0, stockFreeToCloseOb, false, 0);
     $('#stockRoundTripOb').html('$' + formatNumber(stockRoundTripOb));
-    //stockRoundTripTw = calculateRoundTripCost(avgStockQuantityPerTrade, stockBaseChargeTw, stockPerShareChargeTw, false, stockMinimumChargeTw, 0, stockFreeToCloseTw, false, 0);
     stockRoundTripTw = avgStockQuantityPerTrade * stockPerShareChargeTw * 2 + stockBaseChargeTw;
     $('#stockRoundTripTw').html('$' + formatNumber(stockRoundTripTw));
     futureRoundTripString = "Round Trip Commissions on " + avgFutureQuantityPerTrade + " Contract(s)";
@@ -235,7 +234,6 @@ $(function () {
     } else {
       $('#stockMinChargeRow').hide();
     }
-    console.log(optionCappedCommissionOb)
     if (optionCappedCommissionOb){
       $('#optionCappedRow').show();
     } else {
