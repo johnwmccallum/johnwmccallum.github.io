@@ -5,9 +5,9 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600' rel='stylesheet' type='text/css'>
 	   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/main.css">
-    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" type="text/javascript" defer></script>
+    <script type="text/javascript" src="js/main.js" defer></script>
   </head>
   <body>
 
@@ -107,7 +107,7 @@
               </td>
             </tr>
             <tr class="optionRow">
-              <td class="Category optionCategory" id="optionCommission">
+              <td class="Category optionCategory" id="optionCommission" rowspan="6">
                 Options
               </td>
               <td class="tdLeft">
@@ -144,7 +144,7 @@
             </tr>
             <tr class="optionRow">
               <td class="tdLeft">
-                Is There a Minimum Charge?
+                Is There a  Charge?
               </td>
               <td>
                 <div class="onoffswitch">
@@ -159,7 +159,7 @@
                 No
               </td>
             </tr>
-            <tr id="optionMinChargeRow" class="optionRow">
+            <tr id="optionMinChargeRow" class="optionRow hiddenRow">
               <td class="tdLeft">
                 Minimum Charge (if applicable)
               </td>
@@ -204,7 +204,7 @@
                 Yes
               </td>
             </tr>
-            <tr class="optionRow" id="optionCappedRow">
+            <tr class="optionRow hiddenRow" id="optionCappedRow">
               <td class="tdLeft">
                 Capped Amount (Per Leg)
               </td>
@@ -217,7 +217,7 @@
             </tr>
             <tr><td></td><td></td><td></td><td></td></tr>
             <tr class="stockRow">
-              <td class="Category stockCategory" id="stockCommission">
+              <td class="Category stockCategory" id="stockCommission" rowspan="4">
                 Stock
               </td>
               <td class="tdLeft">
@@ -258,7 +258,7 @@
                 No
               </td>
             </tr>
-            <tr id="stockMinChargeRow" class="stockRow">
+            <tr id="stockMinChargeRow" class="stockRow hiddenRow">
               <td class="tdLeft">
                 Minimum Charge (if applicable)
               </td>
@@ -286,7 +286,7 @@
             </tr>
             <tr><td></td><td></td><td></td><td></td></tr>
             <tr class="futureRow">
-              <td class="Category futureCategory" id="futureCommission">
+              <td class="Category futureCategory" id="futureCommission" rowspan="4">
                 Futures
               </td>
             </tr>

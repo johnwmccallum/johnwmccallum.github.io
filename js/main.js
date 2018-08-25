@@ -187,7 +187,7 @@ $(function () {
     $('#optionRoundTripTw').html('$' + formatNumber(optionRoundTripTw));
     stockRoundTripString = "Round Trip Commissions on " + avgStockQuantityPerTrade + " shares";
     $('#stockRoundTripString').html(stockRoundTripString);
-    stockRoundTripOb = calculateRoundTripCost(avgOptionQuantityPerTrade, stockBaseChargeOb, stockPerShareChargeOb, hasStockMinimumChargeOb, stockMinimumChargeOb, 0, stockFreeToCloseOb, false, 0);
+    stockRoundTripOb = calculateRoundTripCost(avgStockQuantityPerTrade, stockBaseChargeOb, stockPerShareChargeOb, hasStockMinimumChargeOb, stockMinimumChargeOb, 0, stockFreeToCloseOb, false, 0);
     $('#stockRoundTripOb').html('$' + formatNumber(stockRoundTripOb));
     stockRoundTripTw = avgStockQuantityPerTrade * stockPerShareChargeTw * 2 + stockBaseChargeTw;
     $('#stockRoundTripTw').html('$' + formatNumber(stockRoundTripTw));
@@ -224,7 +224,7 @@ $(function () {
 
 
   function showHide(){
-    if (hasOptionMinimumChargeOb || hasOptionMinimumChargeTw){
+    if (hasOptionMinimumChargeOb){
       $('#optionMinChargeRow').show();
     } else {
       $('#optionMinChargeRow').hide();
