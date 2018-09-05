@@ -121,70 +121,70 @@ $(function () {
         return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     }
 
-    function createChart(obComm, twComm){
-      if (myChart) {
-        myChart.destroy();
-      }
-      var otherObColor = '#E12529',
-          twColor = '#5DB101';
-      if (twComm > obComm) {
-          otherObColor = '#5DB101',
-          twColor = '#E12529';
-          $('#totalEstimatedCommissionsOb').removeClass('bad').addClass('good');
-          $('#totalEstimatedCommissionsTw').removeClass('good').addClass('bad');
-      }
-      myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: ["Schwab", "tastyworks"],
-              datasets: [{
-                  data: [obComm, twComm],
-                  backgroundColor: [
-                      otherObColor,
-                      twColor
-                  ],
-                  borderColor: [
-                      otherObColor,
-                      twColor
-                  ],
-                  borderWidth: 1
-              }]
-          },
-          options: {
-            tooltips: {
-                callbacks: {
-                    label: function(tooltipItem, data) {
-                        return "$" + Number(tooltipItem.yLabel).toFixed(0).replace(/./g, function(c, i, a) {
-                            return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-                        });
-                    }
-                }
-              },
-              legend: {
-                  display: false
-              },
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true,
-                          display:false
-                      },
-                      gridLines: {
-                        color: "rgba(0, 0, 0, 0)",
-                    }
-                  }],
-                  xAxes: [{
-                    gridLines: {
-                        color: "rgba(0, 0, 0, 0)",
-                    },
-                    ticks: {
-                        fontSize:16
-                    }
-                }]
-              }
-          }
-      });
+  function createChart(obComm, twComm){
+    if (myChart) {
+      myChart.destroy();
     }
+    var otherObColor = '#E12529',
+        twColor = '#5DB101';
+    if (twComm > obComm) {
+        otherObColor = '#5DB101',
+        twColor = '#E12529';
+        $('#totalEstimatedCommissionsOb').removeClass('bad').addClass('good');
+        $('#totalEstimatedCommissionsTw').removeClass('good').addClass('bad');
+    }
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["other brokerage", "tastyworks"],
+            datasets: [{
+                data: [obComm, twComm],
+                backgroundColor: [
+                    otherObColor,
+                    twColor
+                ],
+                borderColor: [
+                    otherObColor,
+                    twColor
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          tooltips: {
+              callbacks: {
+                  label: function(tooltipItem, data) {
+                      return "$" + Number(tooltipItem.yLabel).toFixed(0).replace(/./g, function(c, i, a) {
+                          return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+                      });
+                  }
+              }
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        display:false
+                    },
+                    gridLines: {
+                      color: "rgba(0, 0, 0, 0)",
+                  }
+                }],
+                xAxes: [{
+                  gridLines: {
+                      color: "rgba(0, 0, 0, 0)",
+                  },
+                  ticks: {
+                      fontSize:16
+                  }
+              }]
+            }
+        }
+    });
+  }
 
   function populateValues(){
     optionRoundTripString = "Round Trip Commission on " + avgOptionQuantityPerTrade + " contracts"
@@ -247,7 +247,6 @@ $(function () {
     } else {
       $('#optionCappedRow').hide();
     }
-
   }
 
   function updateRowspan(){
@@ -259,7 +258,9 @@ $(function () {
 
   function updatePage(){
     $("input[type=number]").each(function() {
-      console.log(this.value);
+      if (this.value < 0){
+          this.value = 0;
+      }
     });
     reInitializeGlobals();
     showHide();
