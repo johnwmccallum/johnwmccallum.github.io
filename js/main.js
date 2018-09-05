@@ -204,9 +204,9 @@ $(function () {
     $('#stockRoundTripTw').html('$' + formatNumber(stockRoundTripTw));
     futureRoundTripString = "Round Trip Commissions on " + avgFutureQuantityPerTrade + " Contract(s)";
     $('#futureRoundTripString').html(futureRoundTripString);
-    futureRoundTripOb = calculateRoundTripCost(avgFutureQuantityPerTrade, futureBaseChargeOb, futurePerContractChargeOb, false, 0, 0, false, false, 0);
+    futureRoundTripOb = calculateRoundTripCost(avgFutureQuantityPerTrade, futureBaseChargeOb, futurePerContractChargeOb, false, 0, futureAdditionalFeesOb, false, false, 0);
     $('#futureRoundTripOb').html('$' + formatNumber(futureRoundTripOb));
-    futureRoundTripTw = calculateRoundTripCost(avgFutureQuantityPerTrade, futureBaseChargeTw, futurePerContractChargeTw, false, 0, 0, false, false, 0);
+    futureRoundTripTw = calculateRoundTripCost(avgFutureQuantityPerTrade, futureBaseChargeTw, futurePerContractChargeTw, false, 0, futureAdditionalFeesTw, false, false, 0);
     $('#futureRoundTripTw').html('$' + formatNumber(futureRoundTripTw));
     optionYearEndString = "Options commissions on " + roundTripOptionsPerYear + " round trips"
     $('#optionYearEndString').html(optionYearEndString);
