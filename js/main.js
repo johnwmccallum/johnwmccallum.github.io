@@ -132,6 +132,9 @@ $(function () {
         twColor = '#E12529';
         $('#totalEstimatedCommissionsOb').removeClass('bad').addClass('good');
         $('#totalEstimatedCommissionsTw').removeClass('good').addClass('bad');
+    } else {
+        $('#totalEstimatedCommissionsOb').removeClass('good').addClass('bad');
+        $('#totalEstimatedCommissionsTw').removeClass('bad').addClass('good');
     }
     myChart = new Chart(ctx, {
         type: 'bar',
