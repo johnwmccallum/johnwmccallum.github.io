@@ -136,7 +136,7 @@ $(function () {
       myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: ["other brokerage", "tastyworks"],
+              labels: ["Schwab", "tastyworks"],
               datasets: [{
                   data: [obComm, twComm],
                   backgroundColor: [
@@ -258,6 +258,9 @@ $(function () {
   }
 
   function updatePage(){
+    $("input[type=number]").each(function() {
+      console.log(this.value);
+    });
     reInitializeGlobals();
     showHide();
     populateValues();
