@@ -125,6 +125,14 @@ $(function () {
       if (myChart) {
         myChart.destroy();
       }
+      var otherObColor = '#E12529',
+          twColor = '#5DB101';
+      if (twComm > obComm) {
+          otherObColor = '#5DB101',
+          twColor = '#E12529';
+          $('#totalEstimatedCommissionsOb').removeClass('bad').addClass('good');
+          $('#totalEstimatedCommissionsTw').removeClass('good').addClass('bad');
+      }
       myChart = new Chart(ctx, {
           type: 'bar',
           data: {
@@ -132,12 +140,12 @@ $(function () {
               datasets: [{
                   data: [obComm, twComm],
                   backgroundColor: [
-                      '#E12529',
-                      '#5DB101'
+                      otherObColor,
+                      twColor
                   ],
                   borderColor: [
-                      '#E12529',
-                      '#5DB101'
+                      otherObColor,
+                      twColor
                   ],
                   borderWidth: 1
               }]
