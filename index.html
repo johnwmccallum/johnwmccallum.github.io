@@ -486,18 +486,6 @@
     //All the values are mandatory and the script will not work if not available.
     fields : {
       field1 : {
-        //Type can be either text or title
-        type: "title",
-        //Label for Field Title, can be in any language
-        label: "Title",
-        //Field ID for Title
-        fieldId: "title",
-        //Required "yes" or "no"
-        required: "yes",
-        //Error text to be displayed
-        error: "Please Enter a valid Title"
-      },
-      field2 : {
         //Type for Name - Do not Change
         type: "name",
         //Label for Field Name, can be in any language
@@ -509,7 +497,7 @@
         //Error text to be displayed
         error: "Please Enter a valid name"
       },
-      field3 : {
+      field2 : {
         //Type for Email - Do Not Change
         type: "email",
         //Label for Field Email, can be in any language
@@ -521,31 +509,19 @@
         //Error text to be displayed
         error: "Please Enter a valid Email"
       },
-      field4 : {
-        //Type for Phone - Do Not Change
-        type: "phone",
-        //Label for Field Phone, can be in any language
-        label: "Phone",
-        //Default - Field ID for Phone - Do Not Change
-        fieldId: "phone",
-        //Required "yes" or "no"
-        required: "yes",
-        //Error text to be displayed
-        error: "Please Enter a valid Phone Number"
-      },
-      field5 : {
+      field3 : {
         //Type for Dropdown
         type: "dropdown",
         //Label for Field Dropdown, can be in any language
-        label: "Plan",
+        label: "Topic",
         //Field ID for Plan Dropdown
-        fieldId: "plan",
+        fieldId: "topic",
         //Required "yes" or "no"
         required: "yes",
         //Error text to be displayed
         error: "Please select an option",
         //Options for the Dropdown field
-        options: ['Sprout','Blossom','Garden','Estate','Forest']
+        options: ['Trading','Margin','Accounts','Tax']
       }
     }
   };
