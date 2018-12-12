@@ -469,79 +469,13 @@
 
       </div>
     </div>
-<script src="https://snippets.freshchat.com/js/fc-pre-chat-form-v2.js"></script>
-<script>
-  var preChatTemplate = {
-    //Form header color and Submit button color.
-    mainbgColor: '#E12529',
-    //Form Header Text and Submit button text color.
-    maintxColor: '#fff',
-    //Chat Form Title
-    heading: 'tastyworks',
-    //Chat form Welcome Message
-    textBanner: 'We can\'t wait to talk to you. But first, please take a couple of moments to tell us a bit about yourself.',
-    //Submit Button Label.
-    SubmitLabel: 'Start Chat',
-    //Fields List - Maximum is 5
-    //All the values are mandatory and the script will not work if not available.
-    fields : {
-      field1 : {
-        //Type for Name - Do not Change
-        type: "name",
-        //Label for Field Name, can be in any language
-        label: "Name",
-        //Default - Field ID for Name - Do Not Change
-        fieldId: "name",
-        //Required "yes" or "no"
-        required: "yes",
-        //Error text to be displayed
-        error: "Please Enter a valid name"
-      },
-      field2 : {
-        //Type for Email - Do Not Change
-        type: "email",
-        //Label for Field Email, can be in any language
-        label: "Email",
-        //Default - Field ID for Email - Do Not Change
-        fieldId: "email",
-        //Required "yes" or "no"
-        required: "yes",
-        //Error text to be displayed
-        error: "Please Enter a valid Email"
-      },
-      field3 : {
-        //Type for Dropdown
-        type: "dropdown",
-        //Label for Field Dropdown, can be in any language
-        label: "Topic",
-        //Field ID for Plan Dropdown
-        fieldId: "topic",
-        //Required "yes" or "no"
-        required: "yes",
-        //Error text to be displayed
-        error: "Please select an option",
-        //Options for the Dropdown field
-        options: ['Trading','Margin','Accounts','Tax']
-      }
-    }
-  };
-  window.fcSettings = {
-    token: "ddb8f362-46f4-4536-a634-e2911424f6ed",
-    host: "https://wchat.freshchat.com",
-    config: {
-      cssNames: {
-        //The below element is mandatory. Please add any custom class or leave the default.
-        widget: 'custom_fc_frame',
-        //The below element is mandatory. Please add any custom class or leave the default.
-        expanded: 'custom_fc_expanded'
-      }
-    },
-    onInit: function() {
-      console.log('widget init');
-      fcPreChatform.fcWidgetInit(preChatTemplate);
-    }
-  };
-</script>
-<script src="https://wchat.freshchat.com/js/widget.js" async></script>
+<script> (function (d, w, c) { if(!d.getElementById("spd-busns-spt")) {
+      var n = d.getElementsByTagName('script')[0],
+      s = d.createElement('script'); var loaded = false;
+      s.id = "spd-busns-spt"; s.async = "async";
+      s.src = "https://cdn.freshbots.ai/assets/share/js/fbotsChat.min.js";
+      s.setAttribute("data-prdct-hash", "72739a6abc259fc06bd3aae6d959178cf1ee37c7");
+      s.setAttribute("data-region", "us");
+      s.setAttribute("data-ext-client-id", "d054a406e38511e8aa8b0a9a793e5fca");if (c) { s.onreadystatechange = s.onload = function () { if (!loaded) { c(); } loaded = true; }; } n.parentNode.insertBefore(s, n); } })(document, window); </script>
   </body>
 </html>
